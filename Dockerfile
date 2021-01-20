@@ -17,5 +17,9 @@ RUN rm /var/www/localhost/htdocs/index.html
 RUN rm /var/www/localhost/htdocs/ampache-4.2.6_all.zip
 
 EXPOSE 80
+EXPOSE 443
+
+USER ampache
+
 CMD /usr/sbin/httpd -DFOREGROUND
 #CMD /usr/sh
