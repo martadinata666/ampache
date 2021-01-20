@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.13
 WORKDIR /var/www/localhost/htdocs/
 ADD  https://github.com/ampache/ampache/releases/download/4.2.6/ampache-4.2.6_all.zip /var/www/localhost/htdocs/
 
