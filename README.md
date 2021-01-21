@@ -3,7 +3,6 @@
 
 ## Usage
 ```
----
 version: "3.5"
 services:
   db:
@@ -21,7 +20,7 @@ services:
       - db:/var/lib/mysql
     restart: unless-stopped
   web:
-    image: registry.gitlab.com/dedyms/ampache:4.2.6
+    image: martadinata666/ampache:latest
     container_name: ampache
     environment:
       TZ: Asia/Jakarta
@@ -46,4 +45,6 @@ networks:
 ```
 ### This image doesn't provide mysql, this will will mariadb 10.5 image.
 ### As this image using standard user #1000 , set your music permission correctly.
-#### sudo chown -R 1000:1000 /path/to/music
+```
+sudo chown -R 1000:1000 /path/to/music
+```
