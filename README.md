@@ -43,7 +43,8 @@ networks:
     driver: bridge
 
 ```
-### This image doesn't provide mysql, this will will mariadb 10.5 image.
+### This image doesn't provide mysql, the compose will pull mariadb 10.5 image.
+### Or can connect to existing mariadb instance
 ### As this image using standard user #1000 , set your music permission correctly.
 ```
 sudo chown -R 1000:1000 /path/to/music
