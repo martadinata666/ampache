@@ -21,6 +21,7 @@ docker-build-release:
       - master
     changes:
       - Dockerfile
+      - .gitlab-ci.yml
 
 docker-build-git:
 # git docker image.
