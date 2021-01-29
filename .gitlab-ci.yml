@@ -3,7 +3,7 @@ variables:
   RELEASE: "4.2.6"
 docker-build-release:
   # stable docker image.
-  image: docker:latest
+  image: docker:dind
   stage: build
   #services:
   #  - docker:latest
