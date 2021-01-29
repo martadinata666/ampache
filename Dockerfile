@@ -4,7 +4,7 @@ ENV VER $RELEASE
 RUN echo $RELEASE
 RUN echo $VER
 WORKDIR /var/www/localhost/htdocs/
-ADD https://github.com/ampache/ampache/releases/download/$VER/ampache\-$VER\_all.zip /var/www/localhost/htdocs/
+ADD https://github.com/ampache/ampache/releases/download/$VER/ampache-$VER_all.zip /var/www/localhost/htdocs/
 
 COPY ./php.ini /etc/php7/php.ini
 COPY ./httpd.conf /etc/apache2/httpd.conf
