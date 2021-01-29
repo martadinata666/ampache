@@ -19,7 +19,7 @@ RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 
 RUN rm /var/www/localhost/htdocs/index.html
-RUN rm /var/www/localhost/htdocs/ampache-$RELEASE_all.zip
+RUN rm /var/www/localhost/htdocs/ampache.zip
 
 EXPOSE 80
 EXPOSE 443
