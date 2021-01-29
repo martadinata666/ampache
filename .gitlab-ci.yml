@@ -3,10 +3,10 @@ variables:
   RELEASE: "4.2.6"
 docker-build-release:
   # stable docker image.
-  image: docker:dind
+  image: docker:latest
   stage: build
-  #services:
-  #  - docker:latest
+  services:
+    - docker:dind
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
