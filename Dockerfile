@@ -1,7 +1,8 @@
 FROM alpine:3.13
 ARG RELEASE
+ARG VER=RELEASE
 WORKDIR /var/www/localhost/htdocs/
-ADD https://github.com/ampache/ampache/releases/download/$RELEASE/ampache-${RELEASE}_all.zip /var/www/localhost/htdocs/
+ADD https://github.com/ampache/ampache/releases/download/$RELEASE/ampache-$VER_all.zip /var/www/localhost/htdocs/
 
 COPY ./php.ini /etc/php7/php.ini
 COPY ./httpd.conf /etc/apache2/httpd.conf
