@@ -1,5 +1,5 @@
 FROM alpine:3.13
-ENV RELEASE
+ARG RELEASE
 WORKDIR /var/www/localhost/htdocs/
 ADD https://github.com/ampache/ampache/releases/download/$RELEASE/ampache\-$RELEASE\_all.zip /var/www/localhost/htdocs/
 
