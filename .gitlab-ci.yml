@@ -14,14 +14,14 @@ docker-build-release:
     - docker build --build-arg RELEASE=$RELEASE --pull -t "$CI_REGISTRY_IMAGE:$RELEASE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE" .
     - docker push "$CI_REGISTRY_IMAGE:$RELEASE"
     - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE"
-  except
-    - schedules
   only:
     refs:
       - master
     changes:
       - Dockerfile
       - .gitlab-ci.yml
+    except:
+      - schedules
 
 docker-build-git:
 # git docker image.
