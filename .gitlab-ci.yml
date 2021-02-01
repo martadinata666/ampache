@@ -39,9 +39,9 @@ docker-build-git:
     - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE"
     - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:git"
   only:
-    - schedules
     refs:
       - master
+      - schedules
     changes:
       - Dockerfile.git
       - .gitlab-ci.yml
