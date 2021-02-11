@@ -1,6 +1,6 @@
 # This file is a template, and might need editing before it works on your project.
 variables:
-  RELEASE: "4.2.6"
+  RELEASE: "4.3.0"
 docker-build-release:
   except:
     - schedules
