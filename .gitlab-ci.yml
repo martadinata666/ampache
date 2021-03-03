@@ -1,6 +1,5 @@
 # This file is a template, and might need editing before it works on your project.
 variables:
-  RELEASE: "4.3.0"
 docker-build-release:
   except:
     - schedules
@@ -13,7 +12,7 @@ docker-build-release:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
   script:
-    - docker build --build-arg RELEASE=$RELEASE --pull -t "$CI_REGISTRY_IMAGE:$RELEASE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE" -t "$CI_REGISTRY_IMAGE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE" .
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$RELEASE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE" -t "$CI_REGISTRY_IMAGE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE" .
     - docker push "$CI_REGISTRY_IMAGE:$RELEASE"
     - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE"
     - docker push "$CI_REGISTRY_IMAGE"
