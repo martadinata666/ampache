@@ -1,5 +1,6 @@
 # This file is a template, and might need editing before it works on your project.
 variables:
+  RELEASE: "4.4.0"
 docker-build-release:
   except:
     - schedules
@@ -22,7 +23,6 @@ docker-build-release:
       - master
     changes:
       - Dockerfile
-      - .gitlab-ci.yml
 
 docker-build-git:
 # git docker image.
@@ -43,4 +43,3 @@ docker-build-git:
       - schedules
     changes:
       - Dockerfile.git
-      - .gitlab-ci.yml
