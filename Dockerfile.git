@@ -1,7 +1,7 @@
 FROM alpine:3.13 as tukang
 WORKDIR /var/www/localhost/htdocs/
 COPY ./httpd.conf.git /etc/apache2/httpd.conf 
-RUN apk add  --no-cache composer git nano \
+RUN apk add  --no-cache composer git nano apache2 php7-apache\
                            php7-json php7-dom php7-curl php7-iconv php7-openssl php7-intl php7-tokenizer php7-pdo_sqlite \
                            php7-pdo_mysql php7-session php7-ctype php7-gd php7-mbstring php7-simplexml
 RUN adduser --disabled-password --uid 1000 ampache
@@ -11,7 +11,7 @@ RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localho
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
 RUN cp /var/www/localhost/htdocs/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
-RUNcomposer install --prefer-source --no-interaction
+RUN composer install --prefer-source --no-interaction
 
 EXPOSE 80
 EXPOSE 443
