@@ -242,7 +242,7 @@ ServerSignature On
 # symbolic links and aliases may be used to point to other locations.
 #
 DocumentRoot "/var/www/localhost/htdocs/public/"
-<Directory "/var/www/localhost/htdocs/public/">
+<Directory "/var/www/localhost/htdocs/">
     #
     # Possible values for the Options directive are "None", "All",
     # or any combination of:
