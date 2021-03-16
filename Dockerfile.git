@@ -11,7 +11,7 @@ RUN apk add  --no-cache nano \
 RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 USER ampache
-RUN rm /var/www/localhost/htdocs/index.html && git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs
+RUN rm /var/www/localhost/htdocs/index.html && git clone -b develop https://github.com/ampache/ampache.git/public /var/www/localhost/htdocs && rm -rf /var/www/localhost/htdocs/
 
 EXPOSE 80
 EXPOSE 443
