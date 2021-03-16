@@ -12,8 +12,9 @@ RUN apk add  --no-cache nano \
 RUN adduser --disabled-password --uid 1000 ampache
 #RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 ADD --chown=ampache:ampache https://github.com/ampache/ampache/releases/download/$RELEASE/ampache-$RELEASE\_all.zip /var/www/localhost/htdocs/
-USER ampache
+#USER ampache
 RUN unzip ampache-$RELEASE\_all.zip -d . && rm /var/www/localhost/htdocs/ampache-$RELEASE\_all.zip && rm /var/www/localhost/htdocs/index.html
+RUN ls -al
 
 # Port
 EXPOSE 80
