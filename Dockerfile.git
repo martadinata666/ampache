@@ -23,5 +23,4 @@ RUN adduser --disabled-password --uid 1000 ampache
 
 EXPOSE 80
 EXPOSE 443
-
 CMD /usr/sbin/httpd -DFOREGROUND
