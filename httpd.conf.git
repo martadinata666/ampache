@@ -241,8 +241,8 @@ ServerSignature On
 # documents. By default, all requests are taken from this directory, but
 # symbolic links and aliases may be used to point to other locations.
 #
-DocumentRoot "/var/www/localhost/htdocs/public"
-<Directory "/var/www/localhost/htdocs/public">
+DocumentRoot "/var/www/localhost/htdocs/public/"
+<Directory "/var/www/localhost/htdocs/public/">
     #
     # Possible values for the Options directive are "None", "All",
     # or any combination of:
