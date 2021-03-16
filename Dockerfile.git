@@ -11,7 +11,7 @@ RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localho
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
 RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
-RUN composer install --prefer-source --no-interaction && composer clear-cache
+RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
 
 EXPOSE 80
 EXPOSE 443
