@@ -21,7 +21,7 @@ RUN apk add  --no-cache apache2 php7-apache2\
 RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 USER ampache
-COPY --from=tukang /var/www/localhost/htdocs/* /var/www/localhost/htdocs
+COPY --from=tukang /var/www/localhost/htdocs/* /var/www/localhost/htdocs/
 
 
 EXPOSE 80
