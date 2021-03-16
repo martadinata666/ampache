@@ -27,9 +27,9 @@ USER ampache
 COPY --from=tukang /var/www/localhost/htdocs/public/* /var/www/localhost/htdocs/
 
 
-RUN cp /var/www/localhost/htdocs/rest/.htaccess.dist /var/www/localhost/htdocs/rest/.htaccess
-RUN cp /var/www/localhost/htdocs/play/.htaccess.dist /var/www/localhost/htdocs/play/.htaccess
-RUN cp /var/www/localhost/htdocs/channel/.htaccess.dist /var/www/localhost/htdocs/channel/.htaccess
+#RUN cp /var/www/localhost/htdocs/rest/.htaccess.dist /var/www/localhost/htdocs/rest/.htaccess
+#RUN cp /var/www/localhost/htdocs/play/.htaccess.dist /var/www/localhost/htdocs/play/.htaccess
+#RUN cp /var/www/localhost/htdocs/channel/.htaccess.dist /var/www/localhost/htdocs/channel/.htaccess
 
 EXPOSE 80
 EXPOSE 443
