@@ -1,0 +1,28 @@
+FROM alpine:3.13 as tukang
+WORKDIR /var/www/localhost/htdocs/
+RUN apk add  --no-cache composer git nano apache2 php8-apache2\
+                           php8-json php8-dom php8-curl php8-iconv php8-openssl php8-intl php8-tokenizer \
+                           php8-pdo_mysql php8-session php8-ctype php8-gd php8-mbstring php8-simplexml && rm index.html
+RUN adduser --disabled-password --uid 1000 ampache
+RUN chown -R ampache:ampache /var/www/localhost/htdocs/
+USER ampache
+RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
+RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
+RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
+RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
+RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
+
+FROM alpine:3.13
+WORKDIR /var/www/localhost/htdocs/
+COPY --from=tukang /var/www/localhost/htdocs/ /var/www/localhost/htdocs/
+COPY ./httpd.conf /etc/apache2/httpd.conf
+COPY ./ampache.conf /etc/apache2/conf.d/ampache.conf
+COPY ./ampache-ssl.conf /etc/apache2/conf.d/ampache-ssl.conf
+RUN apk add  --no-cache apache2 php8-apache2 apache2-ssl\
+                           php8-json php8-dom php8-curl php8-iconv php8-openssl php8-intl php8-tokenizer \
+                           php8-pdo_mysql php8-session php8-ctype php8-gd php8-mbstring php8-simplexml && rm index.html
+RUN adduser --disabled-password --uid 1000 ampache
+
+EXPOSE 80
+EXPOSE 443
+CMD /usr/sbin/httpd -DFOREGROUND

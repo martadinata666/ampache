@@ -43,3 +43,23 @@ docker-build-git:
       - schedules
     changes:
       - Dockerfile.git
+
+docker-build-php8:
+# git docker image.
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:git" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:git" . -f Dockerfile.php8
+    - docker push "$CI_REGISTRY_IMAGE:git-php8"
+    - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:git-php8"
+  only:
+    refs:
+      - master
+      - schedules
+    changes:
+      - Dockerfile.php8
