@@ -13,8 +13,8 @@ RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 USER ampache
 RUN rm /var/www/localhost/htdocs/index.html && \
     git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/ampache && \
-    mv /var/www/localhost/ampache/public/* /var/www/localhost/* && \
-    rm -rf /var/www/localhost/ampache/
+    mv /var/www/localhost/htdocs/ampache/public/ /var/www/localhost/htdocs/ && \
+    rm -rf /var/www/localhost/htdocs/ampache/
 
 EXPOSE 80
 EXPOSE 443
