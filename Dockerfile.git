@@ -15,7 +15,7 @@ RUN rm /var/www/localhost/htdocs/index.html && \
     git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/ampache && \
     mv /var/www/localhost/htdocs/ampache/public/* /var/www/localhost/htdocs/ && \
     rm -rf /var/www/localhost/htdocs/ampache/
-RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/rest/.htaccess
+RUN cp /var/www/localhost/htdocs/rest/.htaccess.dist /var/www/localhost/htdocs/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/play/.htaccess.dist /var/www/localhost/htdocs/play/.htaccess
 RUN cp /var/www/localhost/htdocs/channel/.htaccess.dist /var/www/localhost/htdocs/channel/.htaccess
 
