@@ -1,7 +1,7 @@
 FROM alpine:3.13 as tukang
 WORKDIR /var/www/localhost/htdocs/
 RUN apk add  --no-cache composer git nano apache2 php8-apache2\
-                           php8-json php8-dom php8-curl php8-iconv php8-openssl php8-intl php8-tokenizer \
+                           php8-json php8-dom php8-curl php8-iconv php8-openssl php8-intl php8-tokenizer php8 \
                            php8-pdo_mysql php8-session php8-ctype php8-gd php8-mbstring php8-simplexml && rm index.html
 RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
