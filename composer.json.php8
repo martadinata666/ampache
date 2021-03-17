@@ -62,7 +62,7 @@
         "happyworm/jplayer": "2.*",
         "james-heinrich/getid3": "dev-master",
         "jeromeetienne/jquery-qrcode": "dev-master",
-        "jwilsson/spotify-web-api-php": "^4.0"
+        "jwilsson/spotify-web-api-php": "^4.0",
         #"jwilsson/spotify-web-api-php": "^3.5",
         "krixon/xbmc-php-rpc": "dev-master",
         "kumailht/responsive-elements": "dev-master",
@@ -71,7 +71,7 @@
         "mikealmond/musicbrainz": "dev-master",
         "moinax/tvdb": "1.*",
         "mptre/php-soundcloud": "2.*",
-        "narrowspark/http-emitter": "^2.0"
+        "narrowspark/http-emitter": "^2.0",
         #"narrowspark/http-emitter": "^1.0",
         "nyholm/psr7": "^1.3",
         "nyholm/psr7-server": "^1.0",
