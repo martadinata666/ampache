@@ -20,6 +20,7 @@ COPY --from=tukang /var/www/localhost/htdocs/ /var/www/localhost/htdocs/
 COPY ./httpd.conf /etc/apache2/httpd.conf
 COPY ./ampache.conf /etc/apache2/conf.d/ampache.conf
 COPY ./ampache-ssl.conf /etc/apache2/conf.d/ampache-ssl.conf
+COPY ./php.ini.php8 /etc/php8/php.ini
 RUN apk add  --no-cache apache2 php8-apache2 apache2-ssl\
                            php8-json php8-dom php8-curl php8-iconv php8-openssl php8-intl php8-tokenizer php8-gettext \
                            php8-pdo_mysql php8-session php8-ctype php8-gd php8-mbstring php8-simplexml && rm index.html
