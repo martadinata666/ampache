@@ -5,7 +5,7 @@ RUN apk add  --no-cache git \
                            php8-pdo_mysql php8-session php8-ctype php8-gd php8-mbstring php8-simplexml wget
 RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
-RUN wget https://getcomposer.org/download/1.10.20/composer.phar -O /usr/local/bin/composer.phar
+RUN wget https://getcomposer.org/download/1.10.20/composer.phar -O /usr/local/bin/composer
 USER ampache
 RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
 #&& rm /var/www/localhost/htdocs/composer.lock
@@ -13,7 +13,7 @@ RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localho
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
 RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
-RUN php8 /usr/local/bin/composer.phar update &&  php8 /usr/local/bin/composer.phar install --prefer-dist --no-dev --no-interaction && composer clear-cache
+RUN /usr/local/bin/composer update &&  /usr/local/bin/composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
 
 FROM alpine:3.13
 WORKDIR /var/www/localhost/htdocs/
