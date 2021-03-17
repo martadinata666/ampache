@@ -1,18 +1,19 @@
 FROM alpine:3.13 as tukang
 WORKDIR /var/www/localhost/htdocs/
-RUN apk add  --no-cache composer git \
+RUN apk add  --no-cache git \
                            php8-json php8-dom php8-curl php8-iconv php8-openssl php8-intl php8-tokenizer php8 \
-                           php8-pdo_mysql php8-session php8-ctype php8-gd php8-mbstring php8-simplexml
+                           php8-pdo_mysql php8-session php8-ctype php8-gd php8-mbstring php8-simplexml wget
 RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 USER ampache
+RUN wget https://getcomposer.org/download/1.10.20/composer.phar -O /usr/local/bin/composer.phar
 RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
 #&& rm /var/www/localhost/htdocs/composer.lock
-COPY composer.json.php8 /var/www/localhost/htdocs/composer.json
+#COPY composer.json.php8 /var/www/localhost/htdocs/composer.json
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
 RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
-RUN composer update &&  composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
+RUN php8 /usr/local/bin/composer.phar update &&  php8 /usr/local/bin/composer.phar install --prefer-dist --no-dev --no-interaction && composer clear-cache
 
 FROM alpine:3.13
 WORKDIR /var/www/localhost/htdocs/
