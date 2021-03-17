@@ -11,7 +11,7 @@ COPY composer.json.php8 /var/www/localhost/htdocs/composer.json
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
 RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
-RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
+RUN composer update &&  composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
 
 FROM alpine:3.13
 WORKDIR /var/www/localhost/htdocs/
