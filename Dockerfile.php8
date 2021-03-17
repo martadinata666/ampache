@@ -6,8 +6,8 @@ RUN apk add  --no-cache composer git nano apache2 php8-apache2\
 RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 USER ampache
-RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
-COPY composer.json.php8 /var/www/localhost/htdocs/composer.json
+RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/ && rm /var/www/localhost/htdocs/composer.lock
+#COPY composer.json.php8 /var/www/localhost/htdocs/composer.json
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
 RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
