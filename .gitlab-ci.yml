@@ -63,3 +63,4 @@ docker-build-php8:
       - schedules
     changes:
       - Dockerfile.php8
+      - composer.json.php8
