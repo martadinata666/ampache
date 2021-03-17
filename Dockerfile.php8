@@ -1,13 +1,14 @@
 FROM alpine:3.13 as tukang
 WORKDIR /var/www/localhost/htdocs/
-RUN apk add  --no-cache composer git nano apache2 php8-apache2\
+RUN apk add  --no-cache composer git \
                            php8-json php8-dom php8-curl php8-iconv php8-openssl php8-intl php8-tokenizer php8 \
                            php8-pdo_mysql php8-session php8-ctype php8-gd php8-mbstring php8-simplexml && rm index.html
 RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 USER ampache
-RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/ && rm /var/www/localhost/htdocs/composer.lock
-#COPY composer.json.php8 /var/www/localhost/htdocs/composer.json
+RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
+#&& rm /var/www/localhost/htdocs/composer.lock
+COPY composer.json.php8 /var/www/localhost/htdocs/composer.json
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
 RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
