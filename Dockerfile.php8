@@ -10,14 +10,13 @@ RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localho
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
 RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
-RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
+RUN /usr/bin/php8 composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
 
 FROM alpine:3.13
 WORKDIR /var/www/localhost/htdocs/
 COPY --from=tukang /var/www/localhost/htdocs/ /var/www/localhost/htdocs/
 COPY ./httpd.conf /etc/apache2/httpd.conf
 COPY ./ampache.conf /etc/apache2/conf.d/ampache.conf
-COPY ./php.ini.php8 /etc/php8/php.ini
 COPY ./ampache-ssl.conf /etc/apache2/conf.d/ampache-ssl.conf
 RUN apk add  --no-cache apache2 php8-apache2 apache2-ssl\
                            php8-json php8-dom php8-curl php8-iconv php8-openssl php8-intl php8-tokenizer \
