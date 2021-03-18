@@ -1,5 +1,6 @@
 FROM alpine:3.13 as tukang
 WORKDIR /var/www/localhost/htdocs/
+ARG BRANCH="edge"
 RUN apk add  --no-cache git \
                            php8-json php8-dom php8-curl php8-iconv php8-openssl php8-intl php8-tokenizer php8-phar php8 php8-gettext \
                            php8-pdo_mysql php8-session php8-ctype php8-gd php8-mbstring php8-simplexml wget
@@ -7,7 +8,7 @@ RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 RUN wget https://getcomposer.org/download/1.10.20/composer.phar -O /usr/local/bin/composer && chmod 777 /usr/local/bin/composer && ln -s /usr/bin/php8 /usr/bin/php
 USER ampache
-RUN git clone -b edge https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
+RUN git clone -b $BRANCH https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
 #COPY composer.json.php8 /var/www/localhost/htdocs/composer.json
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
