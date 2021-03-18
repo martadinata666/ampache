@@ -1,6 +1,7 @@
 # This file is a template, and might need editing before it works on your project.
 variables:
   RELEASE: "4.4.0"
+  BRANCH: "edge"
 docker-build-release:
   except:
     - schedules
@@ -54,9 +55,9 @@ docker-build-php8:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:devel-php8" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:devel-php8" . -f Dockerfile.php8
-    - docker push "$CI_REGISTRY_IMAGE:devel-php8"
-    - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:devel-php8"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$BRANCH" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$BRANCH" . -f Dockerfile.php8
+    - docker push "$CI_REGISTRY_IMAGE:$BRANCH"
+    - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:$BRANCH"
   only:
     refs:
       - master

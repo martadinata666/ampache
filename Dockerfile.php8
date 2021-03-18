@@ -7,8 +7,8 @@ RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 RUN wget https://getcomposer.org/download/1.10.20/composer.phar -O /usr/local/bin/composer && chmod 777 /usr/local/bin/composer && ln -s /usr/bin/php8 /usr/bin/php
 USER ampache
-RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
-COPY composer.json.php8 /var/www/localhost/htdocs/composer.json
+RUN git clone -b edge https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
+#COPY composer.json.php8 /var/www/localhost/htdocs/composer.json
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
 RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
