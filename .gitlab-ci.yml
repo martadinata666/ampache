@@ -1,7 +1,7 @@
 # This file is a template, and might need editing before it works on your project.
 variables:
   RELEASE: "4.4.0"
-  BRANCH: "edge"
+  BRANCH: "edge-php8"
 docker-build-release:
   except:
     - schedules
