@@ -2,28 +2,33 @@
 variables:
   RELEASE: "4.4.0"
   BRANCH: "edge-php8"
-docker-build-release:
-  except:
-    - schedules
-  # stable docker image.
-  image: docker:latest
+  DOCKERHOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+docker-buildx-stable:
+  # Official docker image.
+  image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
   stage: build
   services:
     - docker:dind
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
+    - docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$RELEASE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE" -t "$CI_REGISTRY_IMAGE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE:$RELEASE"
-    - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE"
-    - docker push "$CI_REGISTRY_IMAGE"
-    - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE"
+    #- docker build --pull -t "$CI_REGISTRY_IMAGE:$DATE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$DATE" .
+    #- docker push "$CI_REGISTRY_IMAGE:$DATE"
+    #- docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:$DATE"
+    - docker buildx create --use
+    - docker buildx inspect --bootstrap
+    - docker buildx build --push --platform linux/arm64/v8,linux/amd64 -t "$CI_REGISTRY_IMAGE:$RELEASE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE" -t "$CI_REGISTRY_IMAGE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE" .
   only:
     refs:
       - master
+      - schedules
     changes:
       - Dockerfile
+      - .gitlab-ci.yml
 
 docker-build-git:
 # git docker image.
