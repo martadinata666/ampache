@@ -17,7 +17,7 @@ RUN unzip ampache-$RELEASE\_all.zip -d . && rm /var/www/localhost/htdocs/ampache
     rm -rf ./lib/vendor/james-heinrich/getid3/.git/ && \
     rm -rf ./lib/vendor/swisnl/jQuery-contextMenu/.git/ && \
     rm -rf ./lib/vendor/swisnl/jQuery-contextMenu/documentation/ && \
-    rm -rf ./lib/vendor/scaron/prettyphoto/.git/ &&
+    rm -rf ./lib/vendor/scaron/prettyphoto/.git/ && \
     rm -rf ./locale/ && mkdir locale/
 # Port
 EXPOSE 80
