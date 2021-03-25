@@ -1,6 +1,6 @@
 # This file is a template, and might need editing before it works on your project.
 variables:
-  RELEASE: "4.4.0"
+  RELEASE: ""
   BRANCH: "edge-php8"
   DOCKERHOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
@@ -14,15 +14,17 @@ docker-buildx-stable:
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
-    - docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+    - docker run --rm --privileged registry.gitlab.com/dedyms/docker-binfmt-qemu:buster
   script:
     #- docker build --pull -t "$CI_REGISTRY_IMAGE:$DATE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$DATE" .
     #- docker push "$CI_REGISTRY_IMAGE:$DATE"
     #- docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:$DATE"
     - docker buildx create --use
     - docker buildx inspect --bootstrap
-    - docker buildx build --push --platform linux/arm64/v8,linux/amd64 -t "$CI_REGISTRY_IMAGE:$RELEASE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE" -t "$CI_REGISTRY_IMAGE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE" .
+    - docker buildx build --push --platform linux/arm64,linux/amd64 -t "$CI_REGISTRY_IMAGE:$RELEASE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$RELEASE" -t "$CI_REGISTRY_IMAGE" -t "$CI_DOCKERHUB_REGISTRY_IMAGE" .
   only:
+    variables:
+      - $SCHEDULE_TYPE != "daily"
     refs:
       - master
       - schedules
@@ -44,6 +46,8 @@ docker-build-git:
     - docker push "$CI_REGISTRY_IMAGE:git"
     - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:git"
   only:
+    variables:
+      - $SCHEDULE_TYPE == "daily"
     refs:
       - master
       - schedules
@@ -64,6 +68,7 @@ docker-build-php8:
     - docker push "$CI_REGISTRY_IMAGE:$BRANCH"
     - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:$BRANCH"
   only:
+      - $SCHEDULE_TYPE == "daily" 
     refs:
       - master
       - schedules
