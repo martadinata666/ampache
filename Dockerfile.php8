@@ -18,6 +18,7 @@ RUN /usr/local/bin/composer update &&  /usr/local/bin/composer install --prefer-
 FROM alpine:3.13
 WORKDIR /var/www/localhost/htdocs/
 COPY --from=tukang /var/www/localhost/htdocs/ /var/www/localhost/htdocs/
+RUN rm -rf /var/www/localhost/htdocs/.git
 COPY ./httpd.conf /etc/apache2/httpd.conf
 COPY ./ampache.conf /etc/apache2/conf.d/ampache.conf
 COPY ./ampache-ssl.conf /etc/apache2/conf.d/ampache-ssl.conf
