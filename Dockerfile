@@ -14,7 +14,11 @@ RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 ADD --chown=ampache:ampache https://github.com/ampache/ampache/releases/download/$RELEASE/ampache-$RELEASE\_all.zip /var/www/localhost/htdocs/
 USER ampache
 RUN unzip ampache-$RELEASE\_all.zip -d . && rm /var/www/localhost/htdocs/ampache-$RELEASE\_all.zip && rm /var/www/localhost/htdocs/index.html
-
+# Clean up hidden .git files
+RUN rm -rf ./lib/vendor/james-heinrich/getid3/.git
+RUN rm -rf ./lib/vendor/swisnl/jQuery-ContextMenu/.git
+RUN rm -rf ./lib/vendor/swisnl/jQuery-ContextMeny/documentation
+RUN rm -rf ./lib/scaron/prettyphoto/.git
 # Port
 EXPOSE 80
 EXPOSE 443
