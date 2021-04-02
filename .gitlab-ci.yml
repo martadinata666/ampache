@@ -54,7 +54,7 @@ docker-build-git:
     changes:
       - Dockerfile.git
 
-docker-build-fpm:
+docker-build-fpm-nginx:
 # git docker image.
   image: docker:latest
   stage: build
@@ -64,9 +64,9 @@ docker-build-fpm:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:git-fpm" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm" . -f Dockerfile.fpm
-    - docker push "$CI_REGISTRY_IMAGE:git-fpm"
-    - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:git-fpm-nginx" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm-nginx" . -f Dockerfile.fpm-nginx
+    - docker push "$CI_REGISTRY_IMAGE:git-fpm-nginx"
+    - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm-nginx"
   only:
     variables:
       - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "fpm")
@@ -74,7 +74,30 @@ docker-build-fpm:
       - master
       - schedules
     changes:
-      - Dockerfile.fpm
+      - Dockerfile.fpm-nginx
+
+docker-build-fpm-apache:
+# git docker image.
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  before_script: 
+    - export TAG="git-fpm-apache"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$TAG" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:$TAG" . -f Dockerfile.fpm-apache
+    - docker push "$CI_REGISTRY_IMAGE:$TAG"
+    - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:$TAG"
+  only:
+    variables:
+      - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "fpm")
+    refs:
+      - master
+      - schedules
+    changes:
+      - Dockerfile.fpm-apache
 
 
 docker-build-php8:
