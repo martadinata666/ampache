@@ -13,6 +13,6 @@ RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/h
 RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhost/htdocs/public/channel/.htaccess
 RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
 
-FROM registry.gitlab.com/dedyms/nginx:alpine
+FROM registry.gitlab.com/dedyms/apahce2:fcgid
 COPY --from=tukang /var/www/localhost/htdocs /var/www/html
 VOLUME /var/www/html
