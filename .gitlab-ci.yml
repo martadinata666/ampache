@@ -69,7 +69,7 @@ docker-build-fpm:
     - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm"
   only:
     variables:
-      - $SCHEDULE_TYPE == "daily"
+      - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "fpm")
     refs:
       - master
       - schedules
