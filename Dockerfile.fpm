@@ -15,3 +15,4 @@ RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-c
 
 FROM registry.gitlab.com/dedyms/nginx:alpine
 COPY --from=tukang /var/www/localhost/htdocs /var/www/html
+VOLUME /var/www/html
