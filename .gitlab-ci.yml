@@ -69,7 +69,7 @@ docker-build-fpm-nginx:
     - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm-nginx"
   only:
     variables:
-      - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "fpm")
+      - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "fpm-nginx")
     refs:
       - master
       - schedules
@@ -92,7 +92,7 @@ docker-build-fpm-apache:
     - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:$TAG"
   only:
     variables:
-      - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "fpm")
+      - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "fpm-apache")
     refs:
       - master
       - schedules
