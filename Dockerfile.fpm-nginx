@@ -14,5 +14,5 @@ RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhos
 RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
 
 FROM registry.gitlab.com/dedyms/nginx:alpine
-COPY --from=tukang /var/www/localhost/htdocs /var/www/html
-VOLUME /var/www/html
+COPY --from=tukang /var/www/localhost/htdocs/ /var/www/html/
+VOLUME /var/www/html/
