@@ -14,7 +14,6 @@ RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhos
 RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
 
 FROM registry.gitlab.com/dedyms/apache2:fcgid
-USER root
 COPY --chown=$CONTAINERUSER:$CONTAINERUSER --from=tukang /var/www/localhost/htdocs/ /var/www/html/
 COPY ports.conf /etc/apache2/ports.conf
 COPY ampache-fcgid.conf /etc/apache2/sites-available/ampache.conf
