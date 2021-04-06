@@ -114,6 +114,8 @@ docker-build-php8:
     - docker push "$CI_REGISTRY_IMAGE:$BRANCH"
     - docker push "$CI_DOCKERHUB_REGISTRY_IMAGE:$BRANCH"
   only:
+    variables:
+      - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "php8")
     refs:
       - master
     changes:
