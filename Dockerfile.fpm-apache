@@ -18,6 +18,7 @@ COPY --chown=$CONTAINERUSER:$CONTAINERUSER --from=tukang /var/www/localhost/htdo
 COPY ports.conf /etc/apache2/ports.conf
 COPY ampache-fcgid.conf /etc/apache2/sites-available/ampache.conf
 COPY ampache-ssl-fcgid.conf /etc/apache2/sites-available/ampache-ssl.conf
+USER root
 RUN a2ensite ampache && a2ensite ampache-ssl
 USER $CONTAINERUSER
 VOLUME /var/www/html
