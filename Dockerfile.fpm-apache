@@ -14,5 +14,10 @@ RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhos
 RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
 
 FROM registry.gitlab.com/dedyms/apache2:fcgid
-COPY --from=tukang /var/www/localhost/htdocs/ /var/www/html/
+USER root
+COPY --chown=$CONTAINERUSER:$CONTAINERUSER --from=tukang /var/www/localhost/htdocs/ /var/www/html/
+COPY ampache-fcgid.conf /etc/apache2/sites-available/ampache.conf
+COPY ampache-ssl-fcgid.conf /etc/apache2/sites-available/ampache-ssl.conf
+RUN a2ensite ampache && a2ensite ampache-ssl
+USER $CONTAINERUSER
 VOLUME /var/www/html/
