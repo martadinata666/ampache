@@ -6,7 +6,12 @@ RUN apk add  --no-cache composer git nano apache2 php7-apache2\
 RUN adduser --disabled-password --uid 1000 ampache
 RUN chown -R ampache:ampache /var/www/localhost/htdocs/
 USER ampache
-RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
+RUN git clone -b develop --depth=1 https://github.com/ampache/ampache.git /var/www/localhost/htdocs/ && \
+    rm -rf ./lib/vendor/james-heinrich/getid3/.git/ && \
+    rm -rf ./lib/vendor/swisnl/jQuery-contextMenu/.git/ && \
+    rm -rf ./lib/vendor/swisnl/jQuery-contextMenu/documentation/ && \
+    rm -rf ./lib/vendor/scaron/prettyphoto/.git/ && \
+    rm -rf ./locale/ && mkdir locale/
 RUN rm -rf .git/
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
 RUN cp /var/www/localhost/htdocs/public/play/.htaccess.dist /var/www/localhost/htdocs/public/play/.htaccess
