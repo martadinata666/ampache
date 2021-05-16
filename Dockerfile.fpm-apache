@@ -27,3 +27,4 @@ USER root
 RUN a2ensite ampache && a2ensite ampache-ssl
 USER $CONTAINERUSER
 VOLUME /var/www/html
+VOLUME /var/www/html/config
