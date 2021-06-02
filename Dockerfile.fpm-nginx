@@ -23,5 +23,4 @@ COPY --chown=$CONTAINERUSER:$CONTAINERUSER --from=tukang /var/www/localhost/htdo
 COPY default.conf /etc/nginx/conf.d/default.conf
 USER $CONTAINERUSER
 WORKDIR /var/www/html
-VOLUME /var/www/html
 VOLUME /var/www/html/config
