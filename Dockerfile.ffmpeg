@@ -1,6 +1,5 @@
-FROM alpine:3.13
-ARG RELEASE=4.4.0
-WORKDIR /var/www/localhost/htdocs/
+FROM registry.gitlab.com/dedyms/alpine:edge
+ARG RELEASE
 COPY ./php.ini /etc/php7/php.ini
 COPY ./httpd.conf /etc/apache2/httpd.conf
 RUN apk add  --no-cache nano \
@@ -9,11 +8,11 @@ RUN apk add  --no-cache nano \
 			   php7-pdo_mysql php7-session php7-ctype php7-gd php7-mbstring php7-zip php7-simplexml ffmpeg && rm /var/www/localhost/htdocs/index.html
 
 # Let user extract web data
-RUN adduser --disabled-password --uid 1000 ampache
-RUN chown -R ampache:ampache /var/www/localhost/htdocs/
-ADD --chown=ampache:ampache https://github.com/ampache/ampache/releases/download/$RELEASE/ampache-$RELEASE\_all.zip /var/www/localhost/htdocs/
-USER ampache
-RUN unzip ampache-$RELEASE\_all.zip -d . && rm /var/www/localhost/htdocs/ampache-$RELEASE\_all.zip && \
+WORKDIR /var/www/localhost/htdocs/
+RUN adduser --disabled-password --uid 1000 $CONTAINERUSER
+RUN chown -R $CONTAINERUSER:$CONTAINERUSER /var/www/localhost/htdocs/
+ADD --chown=$CONTAINERUSER:$CONTAINERUSER https://github.com/$CONTAINERUSER/$CONTAINERUSER/releases/download/$RELEASE/$CONTAINERUSER-$RELEASE\_all.zip /var/www/localhost/htdocs/
+RUN unzip $CONTAINERUSER-$RELEASE\_all.zip -d . && rm /var/www/localhost/htdocs/$CONTAINERUSER-$RELEASE\_all.zip && \
     rm -rf ./lib/vendor/james-heinrich/getid3/.git/ && \
     rm -rf ./lib/vendor/swisnl/jQuery-contextMenu/.git/ && \
     rm -rf ./lib/vendor/swisnl/jQuery-contextMenu/documentation/ && \

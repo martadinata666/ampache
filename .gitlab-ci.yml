@@ -121,4 +121,4 @@ docker-build-php8:
       - master
     changes:
       - Dockerfile.php8
-      - composer.json.php8
+      #- composer.json.php8
