@@ -2,7 +2,7 @@ FROM registry.gitlab.com/dedyms/alpine:edge as tukang
 WORKDIR /var/www/localhost/htdocs/
 RUN apk add  --no-cache composer git nano apache2 php7-apache2\
                            php7-json php7-dom php7-curl php7-iconv php7-openssl php7-intl php7-tokenizer php7-gettext \
-                           php7-pdo_mysql php7-session php7-ctype php7-gd php7-mbstring php7-simplexml && rm index.html
+                           php7-pdo_mysql php7-session php7-ctype php7-gd php7-mbstring php7-simplexml
 RUN git clone -b develop https://github.com/ampache/ampache.git /var/www/localhost/htdocs/
 RUN rm -rf .git/
 RUN cp /var/www/localhost/htdocs/public/rest/.htaccess.dist /var/www/localhost/htdocs/public/rest/.htaccess
@@ -11,13 +11,13 @@ RUN cp /var/www/localhost/htdocs/public/channel/.htaccess.dist /var/www/localhos
 RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
 
 FROM registry.gitlab.com/dedyms/alpine:edge
+WORKDIR /var/www/localhost/htdocs/
 COPY ./httpd.conf /etc/apache2/httpd.conf
 COPY ./ampache.conf /etc/apache2/conf.d/ampache.conf
 COPY ./ampache-ssl.conf /etc/apache2/conf.d/ampache-ssl.conf
 RUN apk add  --no-cache apache2 php7-apache2 apache2-ssl\
                            php7-json php7-dom php7-curl php7-iconv php7-openssl php7-intl php7-tokenizer \
                            php7-pdo_mysql php7-session php7-ctype php7-gd php7-mbstring php7-simplexml && rm index.html
-WORKDIR /var/www/localhost/htdocs/
 COPY --from=tukang --chown=$CONTAINERUSER:$CONTAINERUSER /var/www/localhost/htdocs/ /var/www/localhost/htdocs/
 
 EXPOSE 80
