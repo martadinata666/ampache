@@ -10,7 +10,7 @@ WORKDIR /var/www/localhost/htdocs/
 # Let user extract web data
 RUN chown -R $CONTAINERUSER:$CONTAINERUSER /var/www/localhost/htdocs/
 USER $CONTAINERUSER
-RUN wget  https://github.com/ampache/ampache/releases/download/$RELEASE/ampache-$RELEASE\_all.zip . && \
+RUN wget  https://github.com/ampache/ampache/releases/download/$RELEASE/ampache-$RELEASE\_all.zip && \
     unzip ampache-$RELEASE\_all.zip -d . && rm /var/www/localhost/htdocs/ampache-$RELEASE\_all.zip && \
     rm -rf ./lib/vendor/james-heinrich/getid3/.git/ && \
     rm -rf ./lib/vendor/swisnl/jQuery-contextMenu/.git/ && \
