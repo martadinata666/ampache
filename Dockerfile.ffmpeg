@@ -10,7 +10,6 @@ RUN apk add  --no-cache nano \
 
 # Let user extract web data
 WORKDIR /var/www/localhost/htdocs/
-RUN adduser --disabled-password --uid 1000 $CONTAINERUSER
 RUN chown -R $CONTAINERUSER:$CONTAINERUSER /var/www/localhost/htdocs/
 ADD --chown=$CONTAINERUSER:$CONTAINERUSER https://github.com/ampache/ampache/releases/download/$RELEASE/ampache-$RELEASE\_all.zip /var/www/localhost/htdocs/
 RUN unzip ampache-$RELEASE\_all.zip -d . && rm /var/www/localhost/htdocs/ampache-$RELEASE\_all.zip && \
