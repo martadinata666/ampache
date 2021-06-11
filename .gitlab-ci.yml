@@ -5,7 +5,7 @@ variables:
   DOCKERHOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
 
-docker-buildx-stable:
+buildx-stable:
   # Official docker image.
   image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
   stage: build
@@ -31,7 +31,7 @@ docker-buildx-stable:
     changes:
       - Dockerfile
 
-docker-buildx-stable-ffmpeg:
+buildx-stable-ffmpeg:
   # Official docker image.
   image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
   stage: build
@@ -57,7 +57,7 @@ docker-buildx-stable-ffmpeg:
     changes:
       - Dockerfile.ffmpeg
 
-docker-build-git:
+build-git:
 # git docker image.
   image: docker:latest
   stage: build
@@ -79,7 +79,7 @@ docker-build-git:
     changes:
       - Dockerfile.git
 
-docker-buildx-fpm-nginx:
+buildx-fpm-nginx:
 # git docker image.
   image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
   stage: build
@@ -102,7 +102,7 @@ docker-buildx-fpm-nginx:
     changes:
       - Dockerfile.fpm-nginx
 
-docker-build-fpm-apache:
+build-fpm-apache:
 # git docker image.
   image: docker:latest
   stage: build
@@ -126,7 +126,7 @@ docker-build-fpm-apache:
       - Dockerfile.fpm-apache
 
 
-docker-build-php8:
+build-php8:
 # git docker image.
   image: docker:latest
   stage: build
