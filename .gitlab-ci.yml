@@ -63,7 +63,7 @@ buildx-fpm-nginx:
   script:
     - docker buildx create --use
     - docker buildx inspect --bootstrap
-    - docker buildx build --pull --push --platform linux/amd64 -t "$CI_REGISTRY_IMAGE:git-fpm-nginx" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm-nginx" . -f Dockerfile.fpm-nginx
+    - docker buildx build --pull --push --platform linux/arm64,linux/amd64 -t "$CI_REGISTRY_IMAGE:git-fpm-nginx" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm-nginx" . -f Dockerfile.fpm-nginx
   only:
     variables:
       - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "fpm-nginx")
@@ -86,7 +86,7 @@ buildx-fpm-apache:
   script:
     - docker buildx create --use
     - docker buildx inspect --bootstrap
-    - docker buildx build --pull --push --platform linux/amd64 -t "$CI_REGISTRY_IMAGE:git-fpm-apache" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm-apache" . -f Dockerfile.fpm-apache
+    - docker buildx build --pull --push --platform linux/arm64,linux/amd64 -t "$CI_REGISTRY_IMAGE:git-fpm-apache" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm-apache" . -f Dockerfile.fpm-apache
   only:
     variables:
       - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "fpm-apache")
@@ -95,3 +95,26 @@ buildx-fpm-apache:
       - schedules
     changes:
       - Dockerfile.fpm-apache
+
+buildx-cache:
+# git docker image.
+  image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
+  stage: build
+  services:
+    - docker:dind
+  before_script: 
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker login -u "$CI_DOCKERHUB_REGISTRY_USER" -p "$CI_DOCKERHUB_REGISTRY_PASSWORD" $CI_DOCKERHUB_REGISTRY
+    - docker run --rm --privileged registry.gitlab.com/dedyms/docker-binfmt-qemu:sid
+  script:
+    - docker buildx create --use
+    - docker buildx inspect --bootstrap
+    - docker buildx build --pull --push --platform linux/arm64,linux/amd64 -t "$CI_REGISTRY_IMAGE:build" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:build" . -f Dockerfile.build
+  only:
+    variables:
+      - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "build")
+    refs:
+      - master
+      - schedules
+    changes:
+      - Dockerfile.build
