@@ -1,0 +1,16 @@
+FROM registry.gitlab.com/dedyms/php-fpm:alpine
+USER root 
+RUN apk add --no-cache composer 
+USER $CONTAINERUSER
+WORKDIR /var/www/html
+RUN git clone -b develop --depth=1 https://github.com/ampache/ampache.git /var/www/html && \
+    rm -rf ./lib/vendor/james-heinrich/getid3/.git/ && \
+    rm -rf ./lib/vendor/swisnl/jQuery-contextMenu/.git/ && \
+    rm -rf ./lib/vendor/swisnl/jQuery-contextMenu/documentation/ && \
+    rm -rf ./lib/vendor/scaron/prettyphoto/.git/ && \
+    rm -rf ./locale/ && mkdir locale/
+RUN rm -rf .git/
+RUN cp /var/www/html/public/rest/.htaccess.dist /var/www/html/public/rest/.htaccess
+RUN cp /var/www/html/public/play/.htaccess.dist /var/www/html/public/play/.htaccess
+RUN cp /var/www/html/public/channel/.htaccess.dist /var/www/html/public/channel/.htaccess
+RUN composer install --prefer-dist --no-dev --no-interaction && composer clear-cache
