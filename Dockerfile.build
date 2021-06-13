@@ -1,6 +1,6 @@
 FROM registry.gitlab.com/dedyms/php-fpm:alpine
 USER root 
-RUN apk add --no-cache composer 
+RUN apk add --no-cache composer git
 USER $CONTAINERUSER
 WORKDIR /var/www/html
 RUN git clone -b develop --depth=1 https://github.com/ampache/ampache.git /var/www/html && \
