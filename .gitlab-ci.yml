@@ -112,7 +112,7 @@ buildx-cache:
     - docker buildx build --pull --push --platform linux/arm64,linux/amd64 -t "$CI_REGISTRY_IMAGE:build" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:build" . -f Dockerfile.build
   only:
     variables:
-      - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "build")
+      - $SCHEDULE_TYPE == "build"
     refs:
       - master
       - schedules
