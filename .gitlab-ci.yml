@@ -63,7 +63,7 @@ buildx-fpm-nginx:
   script:
     - docker buildx create --use
     - docker buildx inspect --bootstrap
-    - docker buildx build --pull --push --platform linux/arm64,linux/amd64 -t "$CI_REGISTRY_IMAGE:git-fpm-nginx" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm-nginx" . -f Dockerfile.fpm-nginx
+    - docker buildx build --pull --push --platform linux/arm64,linux/amd64 -t "$CI_REGISTRY_IMAGE:git-fpm" -t "$CI_DOCKERHUB_REGISTRY_IMAGE:git-fpm" . -f Dockerfile.fpm-nginx
   only:
     variables:
       - ($SCHEDULE_TYPE == "daily" || $SCHEDULE_TYPE == "fpm-nginx")
