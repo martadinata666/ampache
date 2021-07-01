@@ -5,6 +5,7 @@ variables:
   DOCKER_DRIVER: overlay2
 
 buildx-stable:
+  cache: {}
   # Official docker image.
   image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
   stage: build
@@ -28,6 +29,7 @@ buildx-stable:
       - Dockerfile
 
 buildx-stable-ffmpeg:
+  cache: {}
   # Official docker image.
   image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
   stage: build
@@ -51,7 +53,7 @@ buildx-stable-ffmpeg:
       - Dockerfile.ffmpeg
 
 buildx-fpm-nginx:
-# git docker image.
+  cache: {}
   image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
   stage: build
   services:
@@ -74,6 +76,7 @@ buildx-fpm-nginx:
       - Dockerfile.fpm-nginx
 
 buildx-cache:
+  cache: {}
 # git docker image.
   image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
   stage: build
