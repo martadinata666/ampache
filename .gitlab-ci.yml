@@ -5,7 +5,7 @@ variables:
 buildx-stable:
   cache: {}
   # Official docker image.
-  image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
+  image: registry.gitlab.com/dedyms/docker-with-buildx:latest
   stage: build
   services:
     - docker:dind
@@ -29,7 +29,7 @@ buildx-stable:
 buildx-stable-ffmpeg:
   cache: {}
   # Official docker image.
-  image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
+  image: registry.gitlab.com/dedyms/docker-with-buildx:latest
   stage: build
   services:
     - docker:dind
@@ -52,7 +52,7 @@ buildx-stable-ffmpeg:
 
 buildx-fpm-nginx:
   cache: {}
-  image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
+  image: registry.gitlab.com/dedyms/docker-with-buildx:latest
   stage: build
   services:
     - docker:dind
@@ -76,7 +76,7 @@ buildx-fpm-nginx:
 buildx-cache:
   cache: {}
 # git docker image.
-  image: registry.gitlab.com/dedyms/docker-with-buildx:0.5.1
+  image: registry.gitlab.com/dedyms/docker-with-buildx:latest
   stage: build
   services:
     - docker:dind
